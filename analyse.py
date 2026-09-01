@@ -136,7 +136,7 @@ if __name__ == "__main__":
     print(meilleure_region(ventes))
 
     print("\nPanier moyen :")
-    print(panier_moyen(ventes))
+    print(montant_moyen_vente(ventes))
 
     print("\nRecommandation :")
     print(generer_recommandation(ventes))
