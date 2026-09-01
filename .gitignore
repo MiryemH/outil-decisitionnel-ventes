@@ -1,0 +1,9 @@
+# Corrigé enseignant
+analyse_vProf.py
+
+# Fichiers générés par Python
+__pycache__/
+*.pyc
+
+# Fichiers système macOS
+.DS_Store
