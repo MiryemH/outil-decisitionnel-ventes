@@ -25,7 +25,14 @@ def chiffre_affaires_par_region(ventes):
     dict: Dictionnaire de la forme :
         { "Normandie": 12000, "Bretagne": 8500, ... }
     """
-    pass
+    CA={}
+    for vente in ventes:
+        region = vente["region"]
+        if region not in CA:
+            CA[region] = vente["quantite"] * vente["prix_unitaire"]
+        else:
+            CA[region] = CA[region] + vente["quantite"] * vente["prix_unitaire"]
+    return CA
 
 
 def produit_le_plus_vendu(ventes):
@@ -38,7 +45,15 @@ def produit_le_plus_vendu(ventes):
     Returns: Tuple contenant : (nom_du_produit, quantité_totale)
     Exemple: ("Ordinateur", 145)    
     """
-    pass
+    #vide
+    produits={}
+    for vente in ventes:
+        prod = vente["produit"]
+        if prod not in produits:
+            produits[prod] = vente["quantite"] 
+        else:
+            produits[prod] = produits[prod] + vente["quantite"] 
+    return max(produits.items(), key=lambda item: item[1])
 
 
 def chiffre_affaires_par_mois(ventes):
