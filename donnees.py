@@ -83,3 +83,6 @@ def afficher_echantillon(ventes, n=5):
     """
     for vente in ventes[:n]:
         print(vente)
+
+donnees = generer_ventes()
+afficher_echantillon(donnees)
