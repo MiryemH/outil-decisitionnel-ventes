@@ -1,3 +1,5 @@
+import calendar
+
 from donnees import generer_ventes, calculer_montant_vente
 import random
 
@@ -25,7 +27,12 @@ def chiffre_affaires_par_region(ventes):
     dict: Dictionnaire de la forme :
         { "Normandie": 12000, "Bretagne": 8500, ... }
     """
-    pass
+    ca_regions = {}
+    for vente in ventes:
+        regions = vente["region"]
+        montant = calculer_montant_vente(vente)
+        ca_regions[regions] = ca_regions.get(regions, 0) + montant
+    return ca_regions
 
 
 def produit_le_plus_vendu(ventes):
@@ -38,8 +45,22 @@ def produit_le_plus_vendu(ventes):
     Returns: Tuple contenant : (nom_du_produit, quantité_totale)
     Exemple: ("Ordinateur", 145)    
     """
-    pass
+    qte_ventes = {}
+    produit_max = ""
+    quantite_max = 0
 
+    #remplir tableau des ventes
+    for vente in ventes:
+        produit = vente["produit"]
+        qte_ventes[produit] = qte_ventes.get(produit, 0) + vente["quantite"]
+
+    # prendre la meilleur vente
+    for produit, quantite in qte_ventes.items():
+        if quantite > quantite_max:
+            quantite_max = quantite
+            produit_max = produit
+
+    return (produit_max, quantite_max)
 
 def chiffre_affaires_par_mois(ventes):
     """
@@ -56,7 +77,16 @@ def chiffre_affaires_par_mois(ventes):
             ...
         }
     """
-    pass
+    chiffre_affaires = {}
+
+    for numero_mois in range(1, 13):
+        chiffre_affaires[calendar.month_name[numero_mois]] = sum(
+            calculer_montant_vente(vente)
+            for vente in ventes
+            if vente["numero_mois"] == numero_mois
+        )
+
+    return chiffre_affaires
 
 
 def meilleure_region(ventes):
@@ -70,6 +100,7 @@ def meilleure_region(ventes):
     tuple, Exemple : ("Normandie", 25800)
     """
     pass
+    
 
 
 def montant_moyen_vente(ventes):
@@ -82,7 +113,12 @@ def montant_moyen_vente(ventes):
     Returns: 
     float, Montant moyen d'une vente.
     """
-    pass
+    somme_prix = 0
+    nb_ventes = len(ventes)
+
+    for vente in ventes:
+        somme_prix+=vente['prix_unitaire']*vente['quantite']
+    return round(somme_prix/nb_ventes,2)
 
 
 def generer_recommandation(ventes):
@@ -103,7 +139,7 @@ def generer_recommandation(ventes):
     Returns
     str: Recommandation décisionnelle.
     """
-    pass
+    return "Charles est un gros bdg"
 
 
 if __name__ == "__main__":
